@@ -141,13 +141,20 @@ class _LoginScreenState extends State<LoginScreen> {
                 email.text = 'demo@orbita.pe';
                 password.text = 'Demo2026!';
               },
-              child: const Text('Completar datos de prueba'),
+              child: const Text(
+                'Completar datos de prueba',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
             ),
           ),
           const Center(
             child: Text(
               'Acceso de demostración',
-              style: TextStyle(color: Colors.white70, fontSize: 11),
+              style: TextStyle(color: Colors.white, fontSize: 12),
             ),
           ),
         ],

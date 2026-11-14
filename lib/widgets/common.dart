@@ -197,7 +197,20 @@ class _ActionButtonState extends State<ActionButton> {
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
         color: widget.style?.backgroundColor?.resolve({}) ?? forest,
         onPressed: widget.onPressed,
-        child: widget.child,
+        child: DefaultTextStyle.merge(
+          style: TextStyle(
+            fontFamily: 'Manrope',
+            fontSize: 15,
+            fontWeight: FontWeight.w700,
+            color: widget.style?.foregroundColor?.resolve({}) ?? Colors.white,
+          ),
+          child: IconTheme.merge(
+            data: IconThemeData(
+              color: widget.style?.foregroundColor?.resolve({}) ?? Colors.white,
+            ),
+            child: widget.child,
+          ),
+        ),
       ),
     ),
   );
@@ -275,7 +288,7 @@ class CupertinoFormField extends StatelessWidget {
             decoration.labelText!,
             style: const TextStyle(
               fontWeight: FontWeight.w700,
-              fontSize: 12,
+              fontSize: 14,
               color: ink,
             ),
           ),
@@ -291,6 +304,12 @@ class CupertinoFormField extends StatelessWidget {
         maxLength: maxLength,
         maxLines: maxLines,
         placeholder: decoration.hintText,
+        style: const TextStyle(fontFamily: 'Manrope', color: ink, fontSize: 16),
+        placeholderStyle: const TextStyle(
+          fontFamily: 'Manrope',
+          color: Color(0xFF55564D),
+          fontSize: 15,
+        ),
         prefix: decoration.prefixIcon,
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
         decoration: BoxDecoration(

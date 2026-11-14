@@ -148,7 +148,7 @@ class _DiscoveryCarouselState extends State<DiscoveryCarousel> {
               child: InkWell(
                 onTap: () => go(i),
                 child: SizedBox(
-                  width: 44,
+                  width: 40,
                   height: 44,
                   child: Center(
                     child: AnimatedContainer(
@@ -175,14 +175,18 @@ class _DiscoveryCarouselState extends State<DiscoveryCarousel> {
           const Spacer(),
           Text(
             '${page + 1} / ${slides.length}',
-            style: const TextStyle(fontSize: 11, color: muted),
+            style: const TextStyle(fontSize: 12, color: Colors.white),
           ),
           IconButton(
+            color: Colors.white,
+            disabledColor: Colors.white38,
             tooltip: 'Colección anterior',
             onPressed: page == 0 ? null : () => go(page - 1),
             icon: const Icon(Icons.chevron_left_rounded),
           ),
           IconButton(
+            color: Colors.white,
+            disabledColor: Colors.white38,
             tooltip: 'Siguiente colección',
             onPressed: page == slides.length - 1 ? null : () => go(page + 1),
             icon: const Icon(Icons.chevron_right_rounded),
@@ -287,12 +291,12 @@ class _ProductCarouselState extends State<ProductCarousel> {
         children: [
           Text(
             'Desliza para descubrir',
-            style: const TextStyle(fontSize: 11, color: muted),
+            style: const TextStyle(fontSize: 12, color: Colors.white),
           ),
           const Spacer(),
           Text(
             '${page + 1} / ${widget.products.length}',
-            style: const TextStyle(fontSize: 11, color: forest),
+            style: const TextStyle(fontSize: 12, color: Colors.white),
           ),
         ],
       ),

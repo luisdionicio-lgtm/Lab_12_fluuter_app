@@ -74,6 +74,17 @@ class _ProductListState extends State<ProductList> {
                 controller: search,
                 onChanged: (_) => setState(() {}),
                 placeholder: 'Buscar producto…',
+                backgroundColor: surface,
+                style: const TextStyle(
+                  color: ink,
+                  fontSize: 15,
+                  fontFamily: 'Manrope',
+                ),
+                placeholderStyle: const TextStyle(
+                  color: muted,
+                  fontSize: 14,
+                  fontFamily: 'Manrope',
+                ),
               ),
             ),
             CupertinoButton(
@@ -169,7 +180,7 @@ class _ProductListState extends State<ProductList> {
         const SizedBox(height: 16),
         Text(
           '${products.length} productos · precios en soles',
-          style: const TextStyle(color: Colors.white70, fontSize: 11),
+          style: const TextStyle(color: Colors.white, fontSize: 12),
         ),
       ],
     );
@@ -235,7 +246,7 @@ class _ProductListState extends State<ProductList> {
                   p.id.length > 12
                       ? 'OR-${p.id.substring(p.id.length - 6)}'
                       : p.id,
-                  style: const TextStyle(fontSize: 9, color: muted),
+                  style: const TextStyle(fontSize: 11, color: muted),
                 ),
               ],
             ),

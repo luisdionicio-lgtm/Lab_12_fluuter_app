@@ -45,7 +45,7 @@ ThemeData buildTheme() => ThemeData(
       color: ink,
     ),
     bodyLarge: TextStyle(fontSize: 16, color: ink, height: 1.4),
-    bodyMedium: TextStyle(fontSize: 13, color: muted, height: 1.5),
+    bodyMedium: TextStyle(fontSize: 14, color: muted, height: 1.5),
   ),
   inputDecorationTheme: InputDecorationTheme(
     filled: true,

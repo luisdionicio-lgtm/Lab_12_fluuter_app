@@ -194,7 +194,10 @@ class _WorkspaceScreenState extends State<WorkspaceScreen> {
                           if (desktop) ...[
                             const Text(
                               'Workspace',
-                              style: TextStyle(fontSize: 12, color: muted),
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Colors.white70,
+                              ),
                             ),
                             const Padding(
                               padding: EdgeInsets.symmetric(horizontal: 14),
@@ -275,7 +278,8 @@ class _WorkspaceScreenState extends State<WorkspaceScreen> {
                                     child: Text(
                                       'No se pudieron leer algunos datos locales. Se muestran los datos de ejemplo.',
                                       style: TextStyle(
-                                        color: Colors.deepOrange,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w700,
                                       ),
                                     ),
                                   ),
