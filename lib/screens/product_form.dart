@@ -155,7 +155,7 @@ class _ProductFormState extends State<ProductForm> {
           ),
         ),
         const SizedBox(height: 24),
-        TextFormField(
+        CupertinoFormField(
           key: const Key('product-name'),
           controller: name,
           maxLength: 80,
@@ -168,7 +168,7 @@ class _ProductFormState extends State<ProductForm> {
           ),
         ),
         const SizedBox(height: 16),
-        TextFormField(
+        CupertinoFormField(
           key: const Key('product-description'),
           controller: description,
           maxLength: 400,
@@ -191,7 +191,7 @@ class _ProductFormState extends State<ProductForm> {
           onChanged: saving ? null : (c) => setState(() => category = c!),
         ),
         const SizedBox(height: 16),
-        TextFormField(
+        CupertinoFormField(
           key: const Key('product-price'),
           controller: price,
           keyboardType: const TextInputType.numberWithOptions(decimal: true),

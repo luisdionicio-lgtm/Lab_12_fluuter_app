@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import '../services/app_store.dart';
 import '../models/product.dart';
 import '../theme/app_theme.dart';
@@ -68,24 +69,11 @@ class _ProductListState extends State<ProductList> {
         Row(
           children: [
             Expanded(
-              child: TextField(
+              child: CupertinoSearchTextField(
                 key: const Key('product-search'),
                 controller: search,
                 onChanged: (_) => setState(() {}),
-                decoration: InputDecoration(
-                  hintText: 'Buscar producto…',
-                  prefixIcon: const Icon(Icons.search),
-                  suffixIcon: q.isEmpty
-                      ? null
-                      : IconButton(
-                          tooltip: 'Limpiar búsqueda',
-                          onPressed: () {
-                            search.clear();
-                            setState(() {});
-                          },
-                          icon: const Icon(Icons.close),
-                        ),
-                ),
+                placeholder: 'Buscar producto…',
               ),
             ),
             PopupMenuButton<String>(
@@ -168,9 +156,9 @@ class _ProductListState extends State<ProductList> {
   }
 
   Widget tile(BuildContext context, Product p, int index) => InkWell(
-    onTap: () => showDialog<void>(
+    onTap: () => showCupertinoDialog<void>(
       context: context,
-      builder: (context) => AlertDialog(
+      builder: (context) => CupertinoAlertDialog(
         title: Text(p.name),
         content: SingleChildScrollView(
           child: Column(
@@ -192,7 +180,7 @@ class _ProductListState extends State<ProductList> {
           ),
         ),
         actions: [
-          TextButton(
+          CupertinoDialogAction(
             onPressed: () => Navigator.pop(context),
             child: const Text('Cerrar'),
           ),

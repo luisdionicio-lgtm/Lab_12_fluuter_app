@@ -100,7 +100,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         key: form,
         child: Column(
           children: [
-            TextFormField(
+            CupertinoFormField(
               controller: name,
               readOnly: !editing,
               validator: requiredText,
@@ -113,7 +113,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
             const SizedBox(height: 16),
-            TextFormField(
+            CupertinoFormField(
               controller: email,
               readOnly: !editing,
               validator: emailValidator,
@@ -127,7 +127,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
             const SizedBox(height: 16),
-            TextFormField(
+            CupertinoFormField(
               controller: phone,
               readOnly: !editing,
               maxLength: 20,

@@ -76,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     style: TextStyle(color: muted),
                   ),
                   const SizedBox(height: 24),
-                  TextFormField(
+                  CupertinoFormField(
                     key: const Key('login-email'),
                     controller: email,
                     validator: emailValidator,
@@ -88,7 +88,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   const SizedBox(height: 18),
-                  TextFormField(
+                  CupertinoFormField(
                     key: const Key('login-password'),
                     controller: password,
                     validator: requiredText,

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import '../theme/app_theme.dart';
 
 class Brand extends StatelessWidget {
@@ -192,9 +193,10 @@ class _ActionButtonState extends State<ActionButton> {
       scale: pressed && !MediaQuery.disableAnimationsOf(context) ? .98 : 1,
       duration: const Duration(milliseconds: 120),
       curve: const Cubic(.23, 1, .32, 1),
-      child: FilledButton(
+      child: CupertinoButton(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
+        color: widget.style?.backgroundColor?.resolve({}) ?? forest,
         onPressed: widget.onPressed,
-        style: widget.style,
         child: widget.child,
       ),
     ),
@@ -237,5 +239,68 @@ class BoldPanel extends StatelessWidget {
     ),
     padding: padding,
     child: child,
+  );
+}
+
+class CupertinoFormField extends StatelessWidget {
+  final TextEditingController controller;
+  final InputDecoration decoration;
+  final String? Function(String?)? validator;
+  final TextInputType? keyboardType;
+  final TextInputAction? textInputAction;
+  final ValueChanged<String>? onFieldSubmitted;
+  final bool obscureText, readOnly;
+  final int? maxLength, maxLines;
+  const CupertinoFormField({
+    super.key,
+    required this.controller,
+    required this.decoration,
+    this.validator,
+    this.keyboardType,
+    this.textInputAction,
+    this.onFieldSubmitted,
+    this.obscureText = false,
+    this.readOnly = false,
+    this.maxLength,
+    this.maxLines = 1,
+  });
+  @override
+  Widget build(BuildContext context) => Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      if (decoration.labelText != null)
+        Padding(
+          padding: const EdgeInsets.only(bottom: 6),
+          child: Text(
+            decoration.labelText!,
+            style: const TextStyle(
+              fontWeight: FontWeight.w700,
+              fontSize: 12,
+              color: ink,
+            ),
+          ),
+        ),
+      CupertinoTextFormFieldRow(
+        controller: controller,
+        validator: validator,
+        keyboardType: keyboardType,
+        textInputAction: textInputAction,
+        onFieldSubmitted: onFieldSubmitted,
+        obscureText: obscureText,
+        readOnly: readOnly,
+        maxLength: maxLength,
+        maxLines: maxLines,
+        placeholder: decoration.hintText,
+        prefix: decoration.prefixIcon,
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+        decoration: BoxDecoration(
+          color: decoration.fillColor ?? surface,
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: CupertinoColors.systemGrey3),
+        ),
+      ),
+      if (decoration.suffixIcon != null)
+        Align(alignment: Alignment.centerRight, child: decoration.suffixIcon!),
+    ],
   );
 }

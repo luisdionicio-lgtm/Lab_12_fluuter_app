@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import '../services/app_store.dart';
 import '../theme/app_theme.dart';
 import '../widgets/common.dart';
@@ -96,14 +97,21 @@ class _WorkspaceScreenState extends State<WorkspaceScreen> {
               ),
             const Spacer(),
             const Divider(),
-            ListTile(
-              contentPadding: const EdgeInsets.symmetric(horizontal: 10),
-              leading: const Icon(Icons.logout_rounded, size: 20, color: muted),
-              title: const Text(
-                'Cerrar sesión',
-                style: TextStyle(fontSize: 12, color: muted),
+            Material(
+              color: Colors.transparent,
+              child: ListTile(
+                contentPadding: const EdgeInsets.symmetric(horizontal: 10),
+                leading: const Icon(
+                  Icons.logout_rounded,
+                  size: 20,
+                  color: muted,
+                ),
+                title: const Text(
+                  'Cerrar sesión',
+                  style: TextStyle(fontSize: 12, color: muted),
+                ),
+                onTap: widget.onLogout,
               ),
-              onTap: widget.onLogout,
             ),
             const SizedBox(height: 8),
             const Padding(
@@ -127,27 +135,26 @@ class _WorkspaceScreenState extends State<WorkspaceScreen> {
         return Scaffold(
           key: scaffold,
           backgroundColor: [const Color(0xFF102D2C), coral, forest, mint][page],
-          bottomNavigationBar: NavigationBar(
-            selectedIndex: page,
-            onDestinationSelected: navigate,
-            height: 66,
+          bottomNavigationBar: CupertinoTabBar(
+            currentIndex: page,
+            onTap: navigate,
             backgroundColor: surface,
-            indicatorColor: mint,
-            destinations: const [
-              NavigationDestination(
-                icon: Icon(Icons.grid_view_rounded),
+            activeColor: forest,
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(CupertinoIcons.square_grid_2x2),
                 label: 'Menú',
               ),
-              NavigationDestination(
-                icon: Icon(Icons.add_box_outlined),
+              BottomNavigationBarItem(
+                icon: Icon(CupertinoIcons.add_circled),
                 label: 'Registrar',
               ),
-              NavigationDestination(
-                icon: Icon(Icons.search_rounded),
+              BottomNavigationBarItem(
+                icon: Icon(CupertinoIcons.search),
                 label: 'Productos',
               ),
-              NavigationDestination(
-                icon: Icon(Icons.person_outline_rounded),
+              BottomNavigationBarItem(
+                icon: Icon(CupertinoIcons.person),
                 label: 'Perfil',
               ),
             ],
@@ -388,6 +395,62 @@ class _WorkspaceScreenState extends State<WorkspaceScreen> {
             widget.onLogout,
           ),
         ],
+      ),
+      const SizedBox(height: 24),
+      SizedBox(
+        width: double.infinity,
+        child: CupertinoButton(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+          color: surface,
+          onPressed: () => showCupertinoModalPopup<void>(
+            context: context,
+            builder: (context) {
+              DateTime selected = DateTime.now();
+              return Container(
+                height: 340,
+                color: CupertinoColors.systemBackground,
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.only(left: 18),
+                          child: Text(
+                            'Calendario',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
+                          ),
+                        ),
+                        CupertinoButton(
+                          onPressed: () => Navigator.pop(context),
+                          child: const Text('Listo'),
+                        ),
+                      ],
+                    ),
+                    Expanded(
+                      child: CupertinoDatePicker(
+                        mode: CupertinoDatePickerMode.date,
+                        initialDateTime: selected,
+                        onDateTimeChanged: (value) => selected = value,
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+          child: const Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(CupertinoIcons.calendar, color: forest),
+              SizedBox(width: 10),
+              Text('Abrir calendario', style: TextStyle(color: forest)),
+            ],
+          ),
+        ),
       ),
       const SizedBox(height: 30),
       const Text(

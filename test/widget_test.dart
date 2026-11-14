@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -100,7 +101,10 @@ void main() {
     await tester.pumpAndSettle();
     await tester.ensureVisible(find.text('Editar perfil'));
     await tester.tap(find.text('Editar perfil'));
-    await tester.enterText(find.byType(TextFormField).first, 'Ana Prueba');
+    await tester.enterText(
+      find.byType(CupertinoTextFormFieldRow).first,
+      'Ana Prueba',
+    );
     await tester.ensureVisible(find.text('Guardar cambios'));
     await tester.tap(find.text('Guardar cambios'));
     await tester.pumpAndSettle();
