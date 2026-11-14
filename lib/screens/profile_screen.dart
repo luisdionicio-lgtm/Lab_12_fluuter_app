@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import '../services/app_store.dart';
 import '../theme/app_theme.dart';
 import '../widgets/common.dart';
@@ -171,7 +172,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
             if (editing)
-              TextButton(
+              CupertinoButton(
                 onPressed: saving
                     ? null
                     : () {

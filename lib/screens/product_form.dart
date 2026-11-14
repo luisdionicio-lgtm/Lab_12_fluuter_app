@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 import '../models/product.dart';
 import '../services/app_store.dart';
@@ -181,14 +182,53 @@ class _ProductFormState extends State<ProductForm> {
           ),
         ),
         const SizedBox(height: 16),
-        DropdownButtonFormField<String>(
-          initialValue: category,
-          isExpanded: true,
-          decoration: const InputDecoration(labelText: 'Categoría'),
-          items: categories
-              .map((c) => DropdownMenuItem(value: c, child: Text(c)))
-              .toList(),
-          onChanged: saving ? null : (c) => setState(() => category = c!),
+        const Text(
+          'Categoría',
+          style: TextStyle(
+            fontWeight: FontWeight.w700,
+            fontSize: 12,
+            color: ink,
+          ),
+        ),
+        const SizedBox(height: 6),
+        SizedBox(
+          width: double.infinity,
+          child: CupertinoButton(
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+            color: surface,
+            onPressed: saving
+                ? null
+                : () => showCupertinoModalPopup<void>(
+                    context: context,
+                    builder: (sheetContext) => CupertinoActionSheet(
+                      title: const Text('Selecciona una categoría'),
+                      actions: categories
+                          .map(
+                            (item) => CupertinoActionSheetAction(
+                              isDefaultAction: item == category,
+                              onPressed: () {
+                                setState(() => category = item);
+                                Navigator.pop(sheetContext);
+                              },
+                              child: Text(item),
+                            ),
+                          )
+                          .toList(),
+                      cancelButton: CupertinoActionSheetAction(
+                        onPressed: () => Navigator.pop(sheetContext),
+                        child: const Text('Cancelar'),
+                      ),
+                    ),
+                  ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text(category, style: const TextStyle(color: ink)),
+                ),
+                const Icon(CupertinoIcons.chevron_down, color: muted, size: 18),
+              ],
+            ),
+          ),
         ),
         const SizedBox(height: 16),
         CupertinoFormField(

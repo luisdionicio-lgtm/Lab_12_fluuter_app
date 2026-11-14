@@ -22,6 +22,7 @@ class WorkspaceScreen extends StatefulWidget {
 
 class _WorkspaceScreenState extends State<WorkspaceScreen> {
   int page = 0;
+  DateTime calendarDate = DateTime.now();
   String selectedCategory = 'Todos';
   final scaffold = GlobalKey<ScaffoldState>();
   final titles = ['Menú', 'Registrar productos', 'Listar productos', 'Perfil'];
@@ -371,26 +372,26 @@ class _WorkspaceScreenState extends State<WorkspaceScreen> {
         children: [
           menuTile(
             'Registrar\nproductos',
-            Icons.add_box_outlined,
+            CupertinoIcons.add_circled,
             mint,
             () => navigate(1),
           ),
           menuTile(
             'Listar\nproductos',
-            Icons.format_list_bulleted_rounded,
+            CupertinoIcons.list_bullet,
             coral,
             () => navigate(2),
           ),
           menuTile(
             'Perfil',
-            Icons.person_outline_rounded,
+            CupertinoIcons.person,
             forest,
             () => navigate(3),
             light: true,
           ),
           menuTile(
             'Logout',
-            Icons.logout_rounded,
+            CupertinoIcons.square_arrow_right,
             const Color(0xFFFFC400),
             widget.onLogout,
           ),
@@ -405,7 +406,7 @@ class _WorkspaceScreenState extends State<WorkspaceScreen> {
           onPressed: () => showCupertinoModalPopup<void>(
             context: context,
             builder: (context) {
-              DateTime selected = DateTime.now();
+              DateTime selected = calendarDate;
               return Container(
                 height: 340,
                 color: CupertinoColors.systemBackground,
@@ -425,7 +426,10 @@ class _WorkspaceScreenState extends State<WorkspaceScreen> {
                           ),
                         ),
                         CupertinoButton(
-                          onPressed: () => Navigator.pop(context),
+                          onPressed: () {
+                            setState(() => calendarDate = selected);
+                            Navigator.pop(context);
+                          },
                           child: const Text('Listo'),
                         ),
                       ],
@@ -442,12 +446,18 @@ class _WorkspaceScreenState extends State<WorkspaceScreen> {
               );
             },
           ),
-          child: const Row(
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(CupertinoIcons.calendar, color: forest),
-              SizedBox(width: 10),
-              Text('Abrir calendario', style: TextStyle(color: forest)),
+              const Icon(CupertinoIcons.calendar, color: forest, size: 20),
+              const SizedBox(width: 10),
+              Flexible(
+                child: Text(
+                  'Calendario · ${calendarDate.day.toString().padLeft(2, '0')}/${calendarDate.month.toString().padLeft(2, '0')}/${calendarDate.year}',
+                  style: const TextStyle(color: forest, fontSize: 15),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
             ],
           ),
         ),

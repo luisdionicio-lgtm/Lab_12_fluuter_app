@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import '../theme/app_theme.dart';
 import '../widgets/common.dart';
 
@@ -133,8 +134,9 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           const SizedBox(height: 22),
           Center(
-            child: TextButton(
-              style: TextButton.styleFrom(foregroundColor: Colors.white),
+            child: CupertinoButton(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
+              color: forest,
               onPressed: () {
                 email.text = 'demo@orbita.pe';
                 password.text = 'Demo2026!';

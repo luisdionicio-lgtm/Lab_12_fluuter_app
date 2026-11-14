@@ -76,15 +76,34 @@ class _ProductListState extends State<ProductList> {
                 placeholder: 'Buscar producto…',
               ),
             ),
-            PopupMenuButton<String>(
-              tooltip: 'Ordenar productos',
-              icon: const Icon(Icons.tune, color: Colors.white),
-              onSelected: (s) => setState(() => sort = s),
-              itemBuilder: (_) => [
-                'Catálogo',
-                'Menor precio',
-                'Mayor precio',
-              ].map((s) => PopupMenuItem(value: s, child: Text(s))).toList(),
+            CupertinoButton(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              onPressed: () => showCupertinoModalPopup<void>(
+                context: context,
+                builder: (sheetContext) => CupertinoActionSheet(
+                  title: const Text('Ordenar productos'),
+                  actions: ['Catálogo', 'Menor precio', 'Mayor precio']
+                      .map(
+                        (option) => CupertinoActionSheetAction(
+                          isDefaultAction: option == sort,
+                          onPressed: () {
+                            setState(() => sort = option);
+                            Navigator.pop(sheetContext);
+                          },
+                          child: Text(option),
+                        ),
+                      )
+                      .toList(),
+                  cancelButton: CupertinoActionSheetAction(
+                    onPressed: () => Navigator.pop(sheetContext),
+                    child: const Text('Cancelar'),
+                  ),
+                ),
+              ),
+              child: const Icon(
+                CupertinoIcons.slider_horizontal_3,
+                color: Colors.white,
+              ),
             ),
           ],
         ),
@@ -96,8 +115,15 @@ class _ProductListState extends State<ProductList> {
                 .map(
                   (c) => Padding(
                     padding: const EdgeInsets.only(right: 8),
-                    child: ChoiceChip(
-                      label: Text(
+                    child: CupertinoButton(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 14,
+                        vertical: 8,
+                      ),
+                      minimumSize: const Size(0, 36),
+                      color: category == c ? mint : surface,
+                      onPressed: () => setState(() => category = c),
+                      child: Text(
                         c,
                         style: const TextStyle(
                           fontWeight: FontWeight.w800,
@@ -105,12 +131,6 @@ class _ProductListState extends State<ProductList> {
                           fontSize: 12,
                         ),
                       ),
-                      selected: category == c,
-                      onSelected: (_) => setState(() => category = c),
-                      selectedColor: mint,
-                      backgroundColor: surface,
-                      showCheckmark: false,
-                      side: const BorderSide(color: ink, width: 2),
                     ),
                   ),
                 )
@@ -128,7 +148,7 @@ class _ProductListState extends State<ProductList> {
                   'No encontramos productos',
                   style: TextStyle(fontWeight: FontWeight.w800),
                 ),
-                TextButton(
+                CupertinoButton(
                   onPressed: () {
                     search.clear();
                     setState(() => category = 'Todos');
